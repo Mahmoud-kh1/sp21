@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 [submodule "library-sp21"]
 	path = library-sp21
 	url = https://github.com/Berkeley-CS61B/library-sp21
+=======
+[submodule "library-sp21"]
+	path = library-sp21
+	url = https://github.com/Berkeley-CS61B/library-sp21
+>>>>>>> 160747451c147c59d8e3cbf70a7afee2b73bebdb

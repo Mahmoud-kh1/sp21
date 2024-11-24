@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 # A single use of the `story` command
 > story "hello world"
 hello world
 <<<
+=======
+# A single use of the `story` command
+> story "hello world"
+hello world
+<<<
+>>>>>>> 160747451c147c59d8e3cbf70a7afee2b73bebdb

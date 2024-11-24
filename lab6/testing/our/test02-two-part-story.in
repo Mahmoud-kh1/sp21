@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Two uses of the `story` command
 > story "Hello"
 Hello
@@ -6,3 +7,13 @@ Hello
 Hello
 World
 <<<
+=======
+# Two uses of the `story` command
+> story "Hello"
+Hello
+<<<
+> story "World"
+Hello
+World
+<<<
+>>>>>>> 160747451c147c59d8e3cbf70a7afee2b73bebdb

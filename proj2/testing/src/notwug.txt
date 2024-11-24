@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 This is not a wug.
+=======
+This is not a wug.
+>>>>>>> 160747451c147c59d8e3cbf70a7afee2b73bebdb

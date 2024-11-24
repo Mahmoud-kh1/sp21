@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 # A single use of the `dog` command
 > dog Fido dalmation 3
 Woof! My name is Fido and I am a dalmation! I am 3 years old! Woof!
 <<<
+=======
+# A single use of the `dog` command
+> dog Fido dalmation 3
+Woof! My name is Fido and I am a dalmation! I am 3 years old! Woof!
+<<<
+>>>>>>> 160747451c147c59d8e3cbf70a7afee2b73bebdb
