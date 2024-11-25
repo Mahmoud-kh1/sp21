@@ -124,7 +124,7 @@ public class Model extends Observable {
     }
     public void handleEmpty(ArrayList<Tile>tiles, int col, int rows){
         // valid move but no merge yet
-        board.move(col, rows, tiles.getLast());
+        board.move(col, rows, tiles.get(tiles.size() - 1));
         tiles.remove(tiles.size() - 1);
         if (tiles.isEmpty()) return;
         if (tiles.get(tiles.size() - 1).value() == board.tile(col, rows).value()){
