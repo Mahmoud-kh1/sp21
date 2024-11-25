@@ -110,14 +110,14 @@ public class Model extends Observable {
 
     public boolean handleTiles (ArrayList<Tile>tiles, int col, int rows){
         boolean changed = false;
-        tiles.removeLast();
+        tiles.remove(tiles.size() - 1);
         if (tiles.isEmpty()) return false;
-        if (tiles.getLast().value() == board.tile(col, rows).value()){
+        if (tiles.get(tiles.size() - 1).value() == board.tile(col, rows).value()){
             // valid move
-            board.move(col ,rows, tiles.getLast());
+            board.move(col ,rows, tiles.get(tiles.size() - 1));
             // score increase by the new value
             score = score + board.tile(col,rows).value();
-            tiles.removeLast();
+            tiles.remove(tiles.size() - 1);
             changed = true;
         }
         return changed;
@@ -125,14 +125,14 @@ public class Model extends Observable {
     public void handleEmpty(ArrayList<Tile>tiles, int col, int rows){
         // valid move but no merge yet
         board.move(col, rows, tiles.getLast());
-        tiles.removeLast();
+        tiles.remove(tiles.size() - 1);
         if (tiles.isEmpty()) return;
-        if (tiles.getLast().value() == board.tile(col, rows).value()){
+        if (tiles.get(tiles.size() - 1).value() == board.tile(col, rows).value()){
             // valid move
-            board.move(col ,rows, tiles.getLast());
+            board.move(col ,rows, tiles.get(tiles.size() - 1));
             // score increase by new value
             score = score + board.tile(col,rows).value();
-            tiles.removeLast();
+            tiles.remove(tiles.size() - 1);
         }
     }
     public ArrayList<Tile> getTilesCol(int col){
