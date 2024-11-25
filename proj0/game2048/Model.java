@@ -1,5 +1,6 @@
 package game2048;
 
+import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Observable;
 
@@ -106,13 +107,66 @@ public class Model extends Observable {
      *    value, then the leading two tiles in the direction of motion merge,
      *    and the trailing tile does not.
      * */
+
+    public boolean handleTiles (ArrayList<Tile>tiles, int col, int rows){
+        boolean changed = false;
+        tiles.removeLast();
+        if (tiles.isEmpty()) return false;
+        if (tiles.getLast().value() == board.tile(col, rows).value()){
+            // valid move
+            board.move(col ,rows, tiles.getLast());
+            // score increase by the new value
+            score = score + board.tile(col,rows).value();
+            tiles.removeLast();
+            changed = true;
+        }
+        return changed;
+    }
+    public void handleEmpty(ArrayList<Tile>tiles, int col, int rows){
+        // valid move but no merge yet
+        board.move(col, rows, tiles.getLast());
+        tiles.removeLast();
+        if (tiles.isEmpty()) return;
+        if (tiles.getLast().value() == board.tile(col, rows).value()){
+            // valid move
+            board.move(col ,rows, tiles.getLast());
+            // score increase by new value
+            score = score + board.tile(col,rows).value();
+            tiles.removeLast();
+        }
+    }
+    public ArrayList<Tile> getTilesCol(int col){
+        ArrayList<Tile>tiles = new ArrayList<>();
+        for (int row = 0; row <= 3; row++) if (board.tile(col, row) != null) tiles.add(board.tile(col, row));
+        return tiles;
+    }
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
+         board.setViewingPerspective(side);
+        for (int col = 0; col < 4; col++){
+            // get the tiles in current column in order from bottom
+            ArrayList<Tile> tiles = getTilesCol(col);
+            // itreate from up to bottom to handle each tile
+            for (int rows = 3; rows >= 0;rows--){
+                // if the current column has no tiles anymore we have nothing to do
+                if (tiles.isEmpty()) break;
+                // if the current tile is exist(have a value) we handle it to check if it will be merged or not
+                if (board.tile(col, rows) != null){
+                    changed |= handleTiles(tiles, col, rows);
+                }
+                // if the current tile is empty we check if there a tile want to move to it
+                // also after that we check if there any tile want to merge with it
+                else {
+                    changed = true;
+                    handleEmpty(tiles, col, rows);
 
-        // TODO: Modify this.board (and perhaps this.score) to account
-        // for the tilt to the Side SIDE. If the board changed, set the
-        // changed local variable to true.
+                }
+
+            }
+
+        }
+        board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
@@ -137,7 +191,13 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        // just check if the current tile is aleady created or not
+        for (int row = 0; row <4; row++) {
+            for (int col = 0; col < 4; col++) {
+                if (b.tile(row, col) == null) return true;
+            }
+        }
+
         return false;
     }
 
@@ -147,7 +207,12 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        for (int row = 0; row <4; row++) {
+            for (int col = 0; col < 4; col++) {
+                if (b.tile(row, col) == null) continue;
+                if (b.tile(row, col).value() == MAX_PIECE) return true;
+            }
+        }
         return false;
     }
 
@@ -158,7 +223,14 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        for (int row = 0; row  < 4 ; row++){
+            for (int col = 0; col < 4 ; col++){
+                if (b.tile(col,row) == null) return true;
+
+                if (col + 1 < 4 && ((b.tile(col + 1, row) == null) || (b.tile(col, row).value() == b.tile(col + 1, row).value()))) return true;
+                if (row + 1 < 4 &&((b.tile(col,row + 1 ) == null) || b.tile(col, row).value() == b.tile(col,row + 1 ).value())) return true;
+            }
+        }
         return false;
     }
 

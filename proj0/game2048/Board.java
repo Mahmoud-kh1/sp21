@@ -62,7 +62,7 @@ public class Board implements Iterable<Tile> {
         return values[side.col(col, row, size())][side.row(col, row, size())];
     }
 
-    /** Return the current Tile at (COL, ROW), where 0 <= ROW < size(),
+    /** Return the current Tile a  t (COL, ROW), where 0 <= ROW < size(),
      *  0 <= COL < size(). Returns null if there is no tile there. */
     public Tile tile(int col, int row) {
         return vtile(col, row, viewPerspective);
@@ -89,7 +89,7 @@ public class Board implements Iterable<Tile> {
         int pcol = viewPerspective.col(col, row, size()),
                 prow = viewPerspective.row(col, row, size());
         if (tile.col() == pcol && tile.row() == prow) {
-            return false;
+            return false; 
         }
         Tile tile1 = vtile(col, row, viewPerspective);
         values[tile.col()][tile.row()] = null;

@@ -34,6 +34,7 @@ public class TestUpOnly extends TestUtils {
         checkModel(after, 0, 0, prevBoard, Side.NORTH);
     }
 
+
     @Test
     /** A basic merge. */
     public void testUpBasicMerge() {
